@@ -1,99 +1,141 @@
-# ستريم إكس
+# ستريم إكس - منصة بث احترافية
 
-منصة بث عربية مبنية بـ Next.js 16 و TypeScript و Tailwind CSS.
+منصة بث فيديو احترافية متكاملة مبنية بـ Next.js 16، جاهزة للبيع كمنتج.
 
 ## الميزات
 
-- **مصادقة المستخدمين**: تسجيل دخول وتسجيل جديد بالبريد الإلكتروني أو جوجل
-- **خطط الاشتراك**: أساسي، قياسي، وبريميوم مع تكامل Stripe
-- **بث الفيديوهات**: مشاهدة أفلام ومسلسلات مع مشغل فيديو مدمج
-- **لوحة تحكم المستخدم**: استكمال المشاهدة، القائمة، وسجل المشاهدة
-- **لوحة تحكم الأدمن**: إدارة المحتوى والمستخدمين والإحصائيات
-- **تصميم متجاوب**: يعمل على سطح المكتب، التابلت، والموبايل
+### للمستخدمين
+- تسجيل دخول/تسجيل جديد
+- تصفح الأفلام والمسلسلات
+- مشاهدة مع تتبع التقدم
+- قائمة مشاهدة شخصية
+- سجل المشاهدة
+- بحث وفلتر
 
-## التقنيات المستخدمة
+### للأدمن
+- لوحة تحكم متقدمة
+- إدارة الفيديوهات والأفلام
+- إدارة المسلسلات والحلقات
+- إدارة الفئات
+- استيراد محتوى من JSON
+- إعدادات الموقع الكاملة
+- إحصائيات
 
-- **الإطار**: Next.js 16 مع App Router
-- **اللغة**: TypeScript
-- **التنسيق**: Tailwind CSS v4
-- **قاعدة البيانات**: SQLite مع Prisma ORM
-- **المصادقة**: NextAuth.js v5 (Auth.js)
-- **المدفوعات**: Stripe
-- **مكونات الواجهة**: مكونات مخصصة مع Radix UI
+### للمنتج
+- تغيير اسم الموقع والشعار
+- تخصيص الألوان
+- SEO كامل
+- نظام embeds للفيديوهات
+- تصميم متجاوب RTL
+- كود منظم وسهل التعديل
 
-## البدء
+## التقنيات
 
-### المتطلبات
+- Next.js 16 + TypeScript
+- Tailwind CSS v4
+- Prisma ORM + SQLite
+- NextAuth.js v5
+- Lucide Icons
 
-- Node.js 18+
-- npm أو yarn
+## التثبيت
 
-### التثبيت
+```bash
+# 1. استنساخ المشروع
+git clone <repository-url>
+cd streaming-platform
 
-1. استنساخ المشروع:
-   ```bash
-   git clone <رابط-المستودع>
-   cd streaming-platform
-   ```
+# 2. تثبيت الاعتماديات
+pnpm install
 
-2. تثبيت الاعتماديات:
-   ```bash
-   npm install
-   ```
+# 3. إعداد قاعدة البيانات
+export DATABASE_URL="file:./dev.db"
+bash node_modules/.bin/prisma db push
+node prisma/seed.js
+node prisma/seed-users.js
 
-3. إعداد متغيرات البيئة:
-   ```bash
-   cp .env.example .env.local
-   ```
+# 4. تشغيل السيرفر
+npm run dev
+```
 
-4. إعداد قاعدة البيانات:
-   ```bash
-   npx prisma generate
-   npx prisma db push
-   ```
+## بيانات الدخول التجريبية
 
-5. تشغيل السيرفر:
-   ```bash
-   npm run dev
-   ```
+### مدير النظام
+- البريد: admin@streamx.com
+- كلمة المرور: admin123
 
-6. افتح [http://localhost:3000](http://localhost:3000) في المتصفح.
+### مستخدم تجريبي
+- البريد: user@test.com
+- كلمة المرور: user123
 
 ## هيكل المشروع
 
 ```
 src/
 ├── app/
-│   ├── api/
-│   │   └── auth/
-│   │       ├── [...nextauth]/
-│   │       └── signup/
-│   ├── auth/
-│   │   ├── signin/
-│   │   └── signup/
-│   ├── dashboard/
-│   ├── admin/
-│   ├── watch/
-│   ├── layout.tsx
-│   └── page.tsx
-├── components/
-│   ├── auth/
-│   ├── ui/
-│   ├── video/
-│   └── subscription/
-├── lib/
-│   ├── auth.ts
-│   ├── prisma.ts
-│   └── utils.ts
-└── hooks/
+│   ├── admin/advanced/ - لوحة تحكم الأدمن
+│   ├── auth/ - تسجيل دخول/خروج
+│   ├── dashboard/ - داشبورد المستخدم
+│   ├── browse/ - تصفح المحتوى
+│   ├── landing/ - صفحة الهبوط
+│   ├── watch/ - صفحة المشاهدة
+│   ├── profile/ - الملف الشخصي
+│   └── api/ - API routes
+├── components/ - مكونات الواجهة
+├── lib/ - utilities و config
+└── prisma/ - schema و seed
 ```
 
-## ملاحظات هامة
+## الصفحات
 
-- **تراخيص المحتوى**: تحتاج إلى اتفاقيات ترخيص مع أصحاب المحتوى
-- **استضافة الفيديو**: استخدم Mux أو Cloudflare Stream أو AWS S3
-- **قاعدة البيانات**: استخدم PostgreSQL في الإنتاج للتوسع الأفضل
+- `/` - الصفحة الرئيسية
+- `/landing` - صفحة هبوط المنتج
+- `/browse` - تصفح المحتوى العام
+- `/demo` - عرض تجريبي
+- `/auth/signin` - تسجيل دخول
+- `/auth/signup` - إنشاء حساب
+- `/dashboard` - داشبورد المستخدم
+- `/dashboard/history` - سجل المشاهدة
+- `/dashboard/watchlist` - قائمتي
+- `/profile` - الملف الشخصي
+- `/admin/advanced` - لوحة تحكم الأدمن
+- `/admin/advanced/episodes` - إدارة الحلقات
+- `/admin/advanced/categories` - إدارة الفئات
+
+## API Endpoints
+
+- `GET /api/videos` - جلب الفيديوهات
+- `POST /api/admin/videos` - إضافة/تعديل فيديو
+- `DELETE /api/admin/videos` - حذف فيديو
+- `GET /api/admin/categories` - جلب الفئات
+- `POST /api/admin/categories` - إضافة فئة
+- `PUT /api/admin/categories` - تعديل فئة
+- `DELETE /api/admin/categories` - حذف فئة
+- `POST /api/admin/import` - استيراد محتوى
+- `GET /api/admin/settings` - جلب الإعدادات
+- `POST /api/admin/settings` - حفظ الإعدادات
+- `GET /api/watchlist` - قائمة المشاهدة
+- `POST /api/watchlist` - إضافة للقائمة
+- `DELETE /api/watchlist` - حذف من القائمة
+- `GET /api/watch-history` - سجل المشاهدة
+- `POST /api/watch-history` - تحديث التقدم
+
+## التخصيص
+
+### تغيير اسم الموقع
+اذهب إلى `/admin/advanced` ← الإعدادات ← اسم الموقع
+
+### تغيير الألوان
+اذهب إلى `/admin/advanced` ← الإعدادات ← اللون الرئيسي
+
+### إضافة محتوى
+1. اذهب إلى `/admin/advanced`
+2. اضغط "إضافة فيديو"
+3. املأ البيانات أو استورد JSON
 
 ## الترخيص
 
-هذا المشروع للأغراض التعليمية. تأكد من الامتثال لجميع القوانين المتعلقة بتوزيع المحتوى وحقوق الطبع والنشر.
+هذا المشروع للبيع كمنتج. يمنح المشتري ترخيص استخدام للمشروع الواحد.
+
+## الدعم
+
+للحصول على الدعم الفني، يرجى التواصل عبر البريد الإلكتروني أو منصة البيع.

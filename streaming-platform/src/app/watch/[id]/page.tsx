@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Film, ChevronLeft, Check } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Play, Tv, Film, Search, ChevronLeft, ListPlus, Check } from "lucide-react"
 
 type Video = {
   id: string
@@ -18,23 +19,22 @@ type Video = {
   views: number
   videoUrl: string
   embedCode: string | null
+  category: { name: string } | null
 }
 
 export default function WatchPage() {
   const { data: session } = useSession()
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [video, setVideo] = useState<Video | null>(null)
   const [loading, setLoading] = useState(true)
   const [progress, setProgress] = useState(0)
 
-  const videoId = searchParams.get("v")
-
   useEffect(() => {
+    const videoId = window.location.hash.replace("#", "")
     if (videoId) {
       loadVideo(videoId)
     }
-  }, [videoId])
+  }, [])
 
   const loadVideo = async (id: string) => {
     setLoading(true)
@@ -146,7 +146,7 @@ export default function WatchPage() {
             <span>النوع: {video.type === "series" ? "مسلسل" : "فيلم"}</span>
           </div>
           {video.description && (
-            <p className="text-gray-300 leading-relaxed">{video.description}</p>
+            <p className="text-gray-300 leading-relaxed mb-6">{video.description}</p>
           )}
         </div>
       </main>
