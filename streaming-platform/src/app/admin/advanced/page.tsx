@@ -57,11 +57,35 @@ export default function AdvancedAdmin() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [activeTab, setActiveTab] = useState("videos")
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [checkingAuth, setCheckingAuth] = useState(true)
 
   useEffect(() => {
     if (status === "loading") return
-    if (!session || session.user?.role !== "ADMIN") {
-      router.push("/dashboard")
+
+    const checkAdmin = async () => {
+      try {
+        const res = await fetch("/api/auth/session")
+        const data = await res.json()
+        if (data.isAdmin) {
+          setIsAdmin(true)
+        } else {
+          router.push("/auth/signin")
+        }
+      } catch (error) {
+        router.push("/auth/signin")
+      } finally {
+        setCheckingAuth(false)
+      }
+    }
+
+    if (session?.user?.role === "ADMIN") {
+      setIsAdmin(true)
+      setCheckingAuth(false)
+    } else if (session) {
+      checkAdmin()
+    } else {
+      router.push("/auth/signin")
     }
   }, [session, status, router])
   const [videos, setVideos] = useState<Video[]>([])
@@ -271,12 +295,25 @@ export default function AdvancedAdmin() {
       v.type.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  if (status === "loading" || !session || session.user?.role !== "ADMIN") {
+  if (checkingAuth || status === "loading") {
     return (
       <div className="min-h-screen bg-gray-950 flex items-center justify-center text-white">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p>جاري التحقق من الصلاحيات...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!isAdmin || !session) {
+    return (
+      <div className="min-h-screen bg-gray-950 flex items-center justify-center text-white">
+        <div className="text-center">
+          <p className="text-xl mb-4">غير مصرح بالوصول</p>
+          <Button onClick={() => router.push("/auth/signin")} className="bg-red-600 hover:bg-red-700">
+            تسجيل الدخول
+          </Button>
         </div>
       </div>
     )
