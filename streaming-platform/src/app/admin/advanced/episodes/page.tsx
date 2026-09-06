@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Play, Tv, Film, Search, Plus, Trash, Edit, ChevronLeft } from "lucide-react"
+import { Play, Tv, Film, Search, Plus, Trash, Edit, ChevronLeft, X, Check } from "lucide-react"
 import Link from "next/link"
 
 type Episode = {

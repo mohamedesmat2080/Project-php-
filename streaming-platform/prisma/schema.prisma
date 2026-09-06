@@ -128,6 +128,7 @@ model Video {
   watchHistory    WatchHistory[]
   watchlist       Watchlist[]
   episodes        Episode[]
+  tags            Tag[]   @relation("VideoTags")
 }
 
 model Episode {
