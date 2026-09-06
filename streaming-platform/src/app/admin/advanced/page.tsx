@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -52,7 +54,16 @@ type Category = {
 }
 
 export default function AdvancedAdmin() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState("videos")
+
+  useEffect(() => {
+    if (status === "loading") return
+    if (!session || session.user?.role !== "ADMIN") {
+      router.push("/dashboard")
+    }
+  }, [session, status, router])
   const [videos, setVideos] = useState<Video[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [siteSettings, setSiteSettings] = useState({
@@ -259,6 +270,17 @@ export default function AdvancedAdmin() {
       v.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       v.type.toLowerCase().includes(searchQuery.toLowerCase())
   )
+
+  if (status === "loading" || !session || session.user?.role !== "ADMIN") {
+    return (
+      <div className="min-h-screen bg-gray-950 flex items-center justify-center text-white">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p>جاري التحقق من الصلاحيات...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">

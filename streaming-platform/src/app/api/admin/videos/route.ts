@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server"
 import prisma from "@/lib/prisma"
+import { adminOnly } from "@/lib/admin-auth"
 
 export async function GET(request: Request) {
+  const adminError = await adminOnly(request)
+  if (adminError) return adminError
+
   const { searchParams } = new URL(request.url)
   const page = parseInt(searchParams.get("page") || "1")
   const limit = parseInt(searchParams.get("limit") || "10")
@@ -40,6 +44,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const adminError = await adminOnly(request)
+  if (adminError) return adminError
+
   try {
     const data = await request.json()
 
@@ -69,6 +76,9 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  const adminError = await adminOnly(request)
+  if (adminError) return adminError
+
   try {
     const { id, ...data } = await request.json()
 
@@ -89,6 +99,9 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  const adminError = await adminOnly(request)
+  if (adminError) return adminError
+
   try {
     const { id } = await request.json()
     await prisma.video.delete({ where: { id } })
