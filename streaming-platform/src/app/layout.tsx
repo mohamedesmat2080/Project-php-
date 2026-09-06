@@ -1,14 +1,12 @@
-import type { Metadata } from "next";
-import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "StreamX",
+export const metadata = {
+  title: "ستريم إكس",
+  description: "شاهد الأفلام والمسلسلات أونلاين",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="ar" dir="rtl">
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

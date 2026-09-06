@@ -1,93 +1,79 @@
-# Streaming Platform
+# ستريم إكس
 
-A full-stack streaming platform built with Next.js 16, TypeScript, and Tailwind CSS.
+منصة بث عربية مبنية بـ Next.js 16 و TypeScript و Tailwind CSS.
 
-## Features
+## الميزات
 
-- **User Authentication**: Sign up, sign in with email/password or Google OAuth
-- **Subscription Plans**: Basic, Standard, and Premium plans with Stripe integration
-- **Video Streaming**: Watch movies and TV shows with a built-in video player
-- **User Dashboard**: Continue watching, watchlist, and watch history
-- **Admin Panel**: Content management, user management, and analytics
-- **Responsive Design**: Works on desktop, tablet, and mobile
+- **مصادقة المستخدمين**: تسجيل دخول وتسجيل جديد بالبريد الإلكتروني أو جوجل
+- **خطط الاشتراك**: أساسي، قياسي، وبريميوم مع تكامل Stripe
+- **بث الفيديوهات**: مشاهدة أفلام ومسلسلات مع مشغل فيديو مدمج
+- **لوحة تحكم المستخدم**: استكمال المشاهدة، القائمة، وسجل المشاهدة
+- **لوحة تحكم الأدمن**: إدارة المحتوى والمستخدمين والإحصائيات
+- **تصميم متجاوب**: يعمل على سطح المكتب، التابلت، والموبايل
 
-## Tech Stack
+## التقنيات المستخدمة
 
-- **Framework**: Next.js 16 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **Database**: SQLite with Prisma ORM
-- **Authentication**: NextAuth.js v5 (Auth.js)
-- **Payments**: Stripe
-- **UI Components**: Custom components with Radix UI primitives
+- **الإطار**: Next.js 16 مع App Router
+- **اللغة**: TypeScript
+- **التنسيق**: Tailwind CSS v4
+- **قاعدة البيانات**: SQLite مع Prisma ORM
+- **المصادقة**: NextAuth.js v5 (Auth.js)
+- **المدفوعات**: Stripe
+- **مكونات الواجهة**: مكونات مخصصة مع Radix UI
 
-## Getting Started
+## البدء
 
-### Prerequisites
+### المتطلبات
 
 - Node.js 18+
-- npm or yarn
+- npm أو yarn
 
-### Installation
+### التثبيت
 
-1. Clone the repository:
+1. استنساخ المشروع:
    ```bash
-   git clone <repository-url>
+   git clone <رابط-المستودع>
    cd streaming-platform
    ```
 
-2. Install dependencies:
+2. تثبيت الاعتماديات:
    ```bash
    npm install
    ```
 
-3. Set up environment variables:
+3. إعداد متغيرات البيئة:
    ```bash
    cp .env.example .env.local
    ```
 
-   Configure the following variables in `.env.local`:
-   - `DATABASE_URL`: SQLite database URL
-   - `NEXTAUTH_SECRET`: Secret key for NextAuth
-   - `NEXTAUTH_URL`: Your application URL
-   - `GOOGLE_CLIENT_ID`: Google OAuth client ID (optional)
-   - `GOOGLE_CLIENT_SECRET`: Google OAuth client secret (optional)
-   - `STRIPE_SECRET_KEY`: Stripe secret key
-   - `STRIPE_PUBLISHABLE_KEY`: Stripe publishable key
-   - `STRIPE_WEBHOOK_SECRET`: Stripe webhook secret
-
-4. Set up the database:
+4. إعداد قاعدة البيانات:
    ```bash
    npx prisma generate
    npx prisma db push
    ```
 
-5. Run the development server:
+5. تشغيل السيرفر:
    ```bash
    npm run dev
    ```
 
-6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+6. افتح [http://localhost:3000](http://localhost:3000) في المتصفح.
 
-## Project Structure
+## هيكل المشروع
 
 ```
 src/
 ├── app/
 │   ├── api/
-│   │   ├── auth/
-│   │   │   ├── [...nextauth]/
-│   │   │   └── signup/
-│   │   └── ...
+│   │   └── auth/
+│   │       ├── [...nextauth]/
+│   │       └── signup/
 │   ├── auth/
 │   │   ├── signin/
 │   │   └── signup/
 │   ├── dashboard/
-│   │   └── page.tsx
 │   ├── admin/
-│   │   └── page.tsx
 │   ├── watch/
-│   │   └── page.tsx
 │   ├── layout.tsx
 │   └── page.tsx
 ├── components/
@@ -102,33 +88,12 @@ src/
 └── hooks/
 ```
 
-## Deployment
+## ملاحظات هامة
 
-### Deploy to Vercel
+- **تراخيص المحتوى**: تحتاج إلى اتفاقيات ترخيص مع أصحاب المحتوى
+- **استضافة الفيديو**: استخدم Mux أو Cloudflare Stream أو AWS S3
+- **قاعدة البيانات**: استخدم PostgreSQL في الإنتاج للتوسع الأفضل
 
-1. Push your code to GitHub
-2. Import your repository in Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy!
+## الترخيص
 
-### Important Notes
-
-- **Content Licensing**: This platform requires proper licensing agreements with content creators/distributors. You are responsible for obtaining all necessary rights and permissions for any content you distribute.
-- **Video Hosting**: Use a proper video hosting solution like Mux, Cloudflare Stream, or AWS S3 with CloudFront for production.
-- **Payment Processing**: Configure Stripe webhooks in production to handle subscription events.
-- **Database**: For production, consider using PostgreSQL instead of SQLite for better scalability.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-This project is for educational purposes. Ensure you comply with all applicable laws and regulations regarding content distribution and copyright.
-
-## Support
-
-For questions or issues, please open an issue on GitHub.
+هذا المشروع للأغراض التعليمية. تأكد من الامتثال لجميع القوانين المتعلقة بتوزيع المحتوى وحقوق الطبع والنشر.

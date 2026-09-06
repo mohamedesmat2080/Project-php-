@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     const { name, email, password } = await request.json()
 
     if (!name || !email || !password) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+      return NextResponse.json({ error: "جميع الحقول مطلوبة" }, { status: 400 })
     }
 
     const existingUser = await prisma.user.findFirst({
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     })
 
     if (existingUser) {
-      return NextResponse.json({ error: "User already exists" }, { status: 400 })
+      return NextResponse.json({ error: "المستخدم موجود بالفعل" }, { status: 400 })
     }
 
     const user = await prisma.user.create({
@@ -25,8 +25,8 @@ export async function POST(request: Request) {
       }
     })
 
-    return NextResponse.json({ message: "User created", userId: user.id })
+    return NextResponse.json({ message: "تم إنشاء المستخدم", userId: user.id })
   } catch (error) {
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 })
+    return NextResponse.json({ error: "حدث خطأ ما" }, { status: 500 })
   }
 }

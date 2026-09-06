@@ -17,7 +17,7 @@ function VideoPlayer() {
             <Button variant="ghost" size="icon" className="text-white">
               <ArrowLeft className="w-5 h-5" />
             </Button>
-            <h1 className="text-xl font-semibold">Movie Title</h1>
+            <h1 className="text-xl font-semibold">عنوان الفيلم</h1>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" className="text-white">
@@ -39,25 +39,24 @@ function VideoPlayer() {
       <main className="pt-20">
         <div className="aspect-video bg-gray-900 flex items-center justify-center">
           <div className="text-center">
-            <p className="text-xl text-gray-400 mb-4">Video Player</p>
-            <p className="text-gray-500">Video ID: {videoId || "Not specified"}</p>
+            <p className="text-xl text-gray-400 mb-4">مشغل الفيديو</p>
+            <p className="text-gray-500">معرف الفيديو: {videoId || "غير محدد"}</p>
           </div>
         </div>
 
         <div className="container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-4">Movie Title</h1>
+          <h1 className="text-3xl font-bold mb-4">عنوان الفيلم</h1>
           <div className="flex items-center gap-4 text-gray-400 mb-6">
             <span>2024</span>
             <span>•</span>
-            <span>2h 15m</span>
+            <span>ساعتين و 15 دقيقة</span>
             <span>•</span>
             <span className="px-2 py-1 border border-gray-600 rounded text-xs">4K</span>
             <span className="px-2 py-1 border border-gray-600 rounded text-xs">HDR</span>
           </div>
           <p className="text-gray-300 leading-relaxed">
-            This is a sample video description. In a real application, this would contain
-            detailed information about the movie or series, including the plot, cast,
-            director, and other relevant details.
+            هذا وصف تجريبي للفيديو. في التطبيق الحقيقي، سيحتوي على معلومات تفصيلية
+            عن الفيلم أو المسلسل، بما في ذلك القصة، الممثلين، المخرج، وتفاصيل أخرى ذات صلة.
           </p>
         </div>
       </main>
@@ -67,7 +66,7 @@ function VideoPlayer() {
 
 export default function WatchPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center text-white">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center text-white">جاري التحميل...</div>}>
       <VideoPlayer />
     </Suspense>
   )

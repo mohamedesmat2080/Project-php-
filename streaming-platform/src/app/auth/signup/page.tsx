@@ -29,13 +29,13 @@ export default function SignUp() {
       const data = await res.json()
 
       if (!res.ok) {
-        setError(data.error || "Something went wrong")
+        setError(data.error || "حدث خطأ ما")
         return
       }
 
       router.push("/auth/signin?registered=true")
     } catch (error) {
-      setError("Something went wrong")
+      setError("حدث خطأ ما")
     } finally {
       setLoading(false)
     }
@@ -45,9 +45,9 @@ export default function SignUp() {
     <div className="min-h-screen bg-black flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <Link href="/" className="text-3xl font-bold text-red-600">StreamX</Link>
-          <h1 className="text-3xl font-bold mt-6 mb-2">Create Account</h1>
-          <p className="text-gray-400">Start your streaming journey today</p>
+          <Link href="/" className="text-3xl font-bold text-red-600">ستريم إكس</Link>
+          <h1 className="text-3xl font-bold mt-6 mb-2">إنشاء حساب</h1>
+          <p className="text-gray-400">ابدأ رحلة المشاهدة اليوم</p>
         </div>
 
         <div className="bg-gray-900 rounded-lg p-8 border border-gray-800">
@@ -59,7 +59,7 @@ export default function SignUp() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-2">Full Name</label>
+              <label htmlFor="name" className="block text-sm font-medium mb-2">الاسم الكامل</label>
               <Input
                 id="name"
                 type="text"
@@ -67,11 +67,11 @@ export default function SignUp() {
                 onChange={(e) => setName(e.target.value)}
                 required
                 className="bg-gray-800 border-gray-700 text-white"
-                placeholder="John Doe"
+                placeholder="أحمد محمد"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
+              <label htmlFor="email" className="block text-sm font-medium mb-2">البريد الإلكتروني</label>
               <Input
                 id="email"
                 type="email"
@@ -83,7 +83,7 @@ export default function SignUp() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-2">Password</label>
+              <label htmlFor="password" className="block text-sm font-medium mb-2">كلمة المرور</label>
               <Input
                 id="password"
                 type="password"
@@ -96,14 +96,14 @@ export default function SignUp() {
               />
             </div>
             <Button type="submit" className="w-full bg-red-600 hover:bg-red-700" disabled={loading}>
-              {loading ? "Creating account..." : "Create Account"}
+              {loading ? "جاري إنشاء الحساب..." : "إنشاء حساب"}
             </Button>
           </form>
 
           <p className="text-center text-gray-400 mt-6">
-            Already have an account?{" "}
+            لديك حساب بالفعل؟{" "}
             <Link href="/auth/signin" className="text-red-600 hover:underline">
-              Sign in
+              تسجيل الدخول
             </Link>
           </p>
         </div>
