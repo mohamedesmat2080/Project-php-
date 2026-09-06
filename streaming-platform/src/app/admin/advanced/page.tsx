@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -54,15 +53,12 @@ type Category = {
 }
 
 export default function AdvancedAdmin() {
-  const { data: session, status } = useSession()
   const router = useRouter()
   const [activeTab, setActiveTab] = useState("videos")
   const [isAdmin, setIsAdmin] = useState(false)
   const [checkingAuth, setCheckingAuth] = useState(true)
 
   useEffect(() => {
-    if (status === "loading") return
-
     const checkAdmin = async () => {
       try {
         const res = await fetch("/api/auth/session")
@@ -79,15 +75,8 @@ export default function AdvancedAdmin() {
       }
     }
 
-    if (session?.user?.role === "ADMIN") {
-      setIsAdmin(true)
-      setCheckingAuth(false)
-    } else if (session) {
-      checkAdmin()
-    } else {
-      router.push("/auth/signin")
-    }
-  }, [session, status, router])
+    checkAdmin()
+  }, [router])
   const [videos, setVideos] = useState<Video[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [siteSettings, setSiteSettings] = useState({
@@ -295,7 +284,7 @@ export default function AdvancedAdmin() {
       v.type.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  if (checkingAuth || status === "loading") {
+  if (checkingAuth) {
     return (
       <div className="min-h-screen bg-gray-950 flex items-center justify-center text-white">
         <div className="text-center">
@@ -306,7 +295,7 @@ export default function AdvancedAdmin() {
     )
   }
 
-  if (!isAdmin || !session) {
+  if (!isAdmin) {
     return (
       <div className="min-h-screen bg-gray-950 flex items-center justify-center text-white">
         <div className="text-center">
