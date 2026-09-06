@@ -120,10 +120,55 @@ model Video {
   maturityRating  String?
   isPublished     Boolean   @default(false)
   views           Int       @default(0)
+  embedCode       String?
+  categoryId      String?
+  category        Category? @relation(fields: [categoryId], references: [id])
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   watchHistory    WatchHistory[]
   watchlist       Watchlist[]
+  episodes        Episode[]
+}
+
+model Episode {
+  id              String    @id @default(cuid())
+  title           String
+  description     String?
+  thumbnailUrl    String?
+  videoUrl        String
+  duration        Int
+  episodeNumber   Int
+  seasonNumber    Int
+  videoId         String
+  video           Video     @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Category {
+  id              String    @id @default(cuid())
+  name            String
+  slug            String    @unique
+  description     String?
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  videos          Video[]
+}
+
+model Tag {
+  id              String    @id @default(cuid())
+  name            String    @unique
+  videos          Video[]   @relation("VideoTags")
+}
+
+model SiteSettings {
+  id              String    @id @default(cuid())
+  key             String    @unique
+  value           String
+  type            String    @default("text")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model WatchHistory {
