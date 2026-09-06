@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  allowedDevOrigins: [
+    "localhost",
+    "localhost:3000",
+    "localhost:3001",
+    ".trycloudflare.com",
+  ],
 };
 
 export default nextConfig;
